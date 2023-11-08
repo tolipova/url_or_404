@@ -82,6 +82,10 @@
                     <a href="contact.html" class="nav-item nav-link">{{post.contact}}</a>
                 </div>
                 {% endfor %}
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="{% url 'addpost' %}" target="_blank" class="dropdown-item">Post qo'shish</a>
+                    <a href="{% url 'add_user' %}" target="_blank" class="dropdown-item">User qo'shish</a>
+                </div>
                 <div class="input-group ml-auto" style="width: 100%; max-width: 300px;">
                     <input type="text" class="form-control" placeholder="Keyword">
                     <div class="input-group-append">

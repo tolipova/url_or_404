@@ -32,7 +32,7 @@ admin.site.register(Addstart)
 admin.site.register(Tranding)
 admin.site.register(SingleNews)
 admin.site.register(SingleComments)
-
+admin.site.register(Users)
 
 
 

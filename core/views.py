@@ -1,5 +1,7 @@
-from django.shortcuts import render , get_object_or_404
-from .models import *
+from django.shortcuts import render , get_object_or_404, redirect
+from .models import * 
+from .forms import *
+from django.http import HttpResponse
 # Create your views here.
 def info(request):
     navbar = NavbarStart.objects.all()
@@ -44,16 +46,36 @@ def info(request):
 
 def show_post(request, post_id):
     post = get_object_or_404(SingleNews, pk=post_id)
+    comment = SingleComments.objects.all()
     context ={
         'post':post,
-        'cat_selected':post_id
     }
     return render(request, 'single.html', context=context)
 
-# def show_post(request, post_id):
-#     post = get_object_or_404(SingleComments, pk=post_id)
-#     context ={
-#         'post':post,
-#         'cat_selected':post_id
-#     }
-#     return render(request, 'single.html', context=context)
+def add_user(request):
+    if request.method == 'POST':
+        form = UserForms(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('info')
+    else:
+            # return HttpResponse(f"Malumot xato yuborildi ")    
+            form = UserForms()
+    context = {
+            'form':form
+        }
+    return render(request, 'forms.html', context )
+
+def add_post(request):
+    if request.method == 'POST':
+        form = PostForms(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('info')
+    else:
+            # return HttpResponse(f"Malumot xato yuborildi ")    
+            form = PostForms()
+    context = {
+            'form':form
+        }
+    return render(request, 'post_form.html', context )

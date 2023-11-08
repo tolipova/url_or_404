@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+import uuid
 # Create your models here.
 class Category(models.Model):
     category = models.CharField(max_length=255)
@@ -26,7 +27,7 @@ class StartSlider(models.Model):
 class Posts(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    date = models.DateField(auto_now=False)
+    date = models.DateField(auto_now=True)
     image = models.ImageField(upload_to='user_info/')
     info = models.CharField(max_length=255)
 
@@ -138,3 +139,11 @@ class SingleComments(models.Model):
 
 
        
+class Users(models.Model):
+    user_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    work_place = models.CharField(max_length=255)
+    id = models.UUIDField(primary_key=True , default=uuid.uuid4, editable=False , unique=True)
+
+    def __str__(self):
+        return self.user_name
