@@ -12,7 +12,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('change-password', PasswordChangeView.as_view(), name='password_change'),
-    path('password-change-done', PasswordChangeDoneView.as_view(),  name='done')
+    path('password-change-done', PasswordChangeDoneView.as_view(),  name='done'),
+    path('register/', register, name='register')
 
 ]
 if settings.DEBUG:

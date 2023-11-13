@@ -3,7 +3,30 @@ from .models import *
 from .forms import *
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+
+
 # Create your views here.
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = User.objects.create_user(username=username, password=password)
+            form.save()
+            user = authenticate(username=username, password=password)
+            login(request, form)
+            return redirect('home')
+    else:
+         form = UserCreationForm()
+    return render (request, 'registration/register.html', {'form':form})           
+     
+
+
+
 @login_required
 def info(request):
     navbar = NavbarStart.objects.all()
